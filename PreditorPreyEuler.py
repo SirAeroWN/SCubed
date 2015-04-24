@@ -21,10 +21,10 @@ def newFoxes(cP, dP, currentRabbits, currentFoxes):
 def update():
 	rabbityData, foxyData = calculateYs(eval(astr.get()), eval(bstr.get()), eval(cstr.get()), eval(dstr.get()), eval(foxesstr.get()), eval(rabbitsstr.get()), deltaT, eval(maxTstr.get()))
 	close()
-	x = np.arange(0, maxT, deltaT)
+	x = np.arange(0, eval(maxTstr.get()), deltaT)
 	plot(x,rabbityData)
 	plot(x,foxyData)
-	axis([0, maxT, amin(foxyData), amax(rabbityData)])
+	axis([0, eval(maxTstr.get()), amin(foxyData), amax(rabbityData)])
 	xlabel('t')
 	ylabel('Foxes and Rabbits')
 	legend('')
@@ -89,18 +89,6 @@ tk.Entry(root, textvariable = maxTstr).grid(row = 7, column = 2)
 # make a button to update the graph
 tk.Button(root, text = 'graph', command = update).grid(row = 8, columnspan = 2)
 
-# foxes = 10
-# rabbits = 55
 deltaT = 0.01
-maxT = 100
-# rabbity, foxy = calculateYs(eval(astr.get()), eval(bstr.get()), eval(cstr.get()), eval(dstr.get()), eval(foxesstr.get()), eval(rabbitsstr.get()), deltaT, eval(maxTstr.get()))
-# x = np.arange(0, maxT, deltaT)
-# plot(x,rabbity)
-# plot(x,foxy)
-# axis([0, maxT, amin(foxy), amax(rabbity)])
-# xlabel('t')
-# ylabel('Foxes and Rabbits')
-# legend('')
-# show()
 
 root.mainloop()
