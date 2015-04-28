@@ -24,29 +24,8 @@ def F(i, j):
 	else:
 		return (k[i][j] * N[j])
 
-def deltaN1():
-	return (F(1, 2) + F(1, 4) + F(1, 7) + F(1, 6) - F(2, 1) - F(4, 1))
-
-def deltaN2():
-	return (F(2, 3) + F(2, 1) - F(1, 2) - F(3, 2))
-
-def deltaN3():
-	return (F(3, 2) - F(2, 3))
-
-def deltaN4():
-	return (F(4, 1) - F(1, 4) - F(6, 4) - F(5, 4))
-
-def deltaN5():
-	return (F(5, 4) - F(6, 5))
-
-def deltaN6():
-	return (F(6, 4) + F(6, 5) - F(7, 6) - F(1, 6))
-
-def deltaN7():
-	return (F(7, 6) - F(1, 7))
-
 def newCont(N, container, i):
-	N[container] = N[container] + (Narrays[container][i] * deltaT)
+	N[container] = N[container] + (deltas[container]() * deltaT)
 	return
 
 # constants
@@ -54,8 +33,16 @@ deltaT = 0.1
 t = 0
 burned = False
 beta = 0.1
-legends = ['placeholder', 'Atmosphere', 'Mixed Upper Ocean Layer', 'Deep Ocean Layer', 'Short-lived Terrestrial Biota', 'Long-lived Biota', 'Detritus', 'Soil']
+legends = ['Atmosphere', 'Mixed Upper Ocean Layer', 'Deep Ocean Layer', 'Short-lived Terrestrial Biota', 'Long-lived Biota', 'Detritus', 'Soil']
 labelStr = 'Change in amount of Carbon (GT)'
+deltas = { 1: lambda : (F(1, 2) + F(1, 4) + F(1, 7) + F(1, 6) - F(2, 1) - F(4, 1)),
+			2: lambda : (F(2, 3) + F(2, 1) - F(1, 2) - F(3, 2)),
+			3: lambda : (F(3, 2) - F(2, 3)),
+			4: lambda : (F(4, 1) - F(1, 4) - F(6, 4) - F(5, 4)),
+			5: lambda : (F(5, 4) - F(6, 5)),
+			6: lambda : (F(6, 4) + F(6, 5) - F(7, 6) - F(1, 6)),
+			7: lambda : (F(7, 6) - F(1, 7)),
+		}
 
 N = ['placeholder', 700, 1000, 36000, 130, 700, 60, 1500]
 
@@ -76,30 +63,35 @@ k[1][6] = 53 / 60
 
 # make the arrays which will hold all the deltaN values which is what we will actually graph
 x = np.arange(0, 100,  0.1)
+NGraphArrays = ['placeholder', np.empty(1000), np.empty(1000), np.empty(1000), np.empty(1000), np.empty(1000), np.empty(1000), np.empty(1000)]
 Narrays = ['placeholder', np.empty(1000), np.empty(1000), np.empty(1000), np.empty(1000), np.empty(1000), np.empty(1000), np.empty(1000)]
+for i in range(1, 8):
+	Narrays[i][0] = N[i]
 
 # now make the fancy for loop to do all the hard work
-for i in range(0, 1000):
+for i in range(1, 1000):
 	if t >= 10 and not burned:
 		N[1] += 10
 		burned = True
-	Narrays[1][i] = deltaN1()
-	Narrays[2][i] = deltaN2()
-	Narrays[3][i] = deltaN3()
-	Narrays[4][i] = deltaN4()
-	Narrays[5][i] = deltaN5()
-	Narrays[6][i] = deltaN6()
-	Narrays[7][i] = deltaN7()
-	for j in range(1, 7):
+	for j in range(1, 8):
 		newCont(N, j, i)
+	NGraphArrays[1][i] = N[1] - 700
+	NGraphArrays[2][i] = N[2] - 1000
+	NGraphArrays[3][i] = N[3] - 36000
+	NGraphArrays[4][i] = N[4] - 130
+	NGraphArrays[5][i] = N[5] - 700
+	NGraphArrays[6][i] = N[6] - 60
+	NGraphArrays[7][i] = N[7] - 1500
+	for j in range(1, 8):
+		Narrays[j][i] = N[j]
 	t += deltaT
 
 for i in range (1, 8):
-	plot(x,Narrays[i])
+	plot(x,NGraphArrays[i])
 xlabel('Time')
 ylabel(labelStr)
 legend(legends)
-axis([0, 100, -2, 2])
+axis([0, 100, -10, 10])
 grid(True)
 axhline(0, color='black', lw=2)
 axvline(0, color='black', lw=2)
