@@ -18,9 +18,9 @@ from matplotlib.pylab import *
 
 def F(i, j):
 	if i == 4 and j == 1:
-		return (k[4][1]*N[4]*(1 + beta*np.log(N[1] / originalN[1])))
+		return (k[4][1]*N[4]*(1 + beta*np.log(N[1] / 700)))
 	elif i == 1 and j == 2:
-		return (k[2][1]*(originalN[1] + ((originalN[1] / originalN[2])*(N[2] - originalN[2]))))
+		return (N[2] - 900)
 	else:
 		return (k[i][j] * N[j])
 
@@ -54,23 +54,25 @@ deltaT = 0.1
 t = 0
 burned = False
 beta = 0.1
+legends = ['placeholder', 'Atmosphere', 'Mixed Upper Ocean Layer', 'Deep Ocean Layer', 'Short-lived Terrestrial Biota', 'Long-lived Biota', 'Detritus', 'Soil']
+labelStr = 'Rate of Change (GT carbon)'
 
 N = ['placeholder', 700, 1000, 36000, 130, 700, 60, 1500]
 
 # kij's are the original always equilibrium numbers? or are they initial values?
 k = np.empty((8, 8))
-k[2][1] = 100 / N[1]
-k[1][2] = 100 / N[2]
-k[3][2] = (100 / 3) / N[2]
-k[2][3] = (100 / 3) / N[3]
-k[1][4] = 55 / N[4]
+k[2][1] = 100 / 700
+k[1][2] = 100 / 1000
+k[3][2] = (100 / 3) / 1000
+k[2][3] = (100 / 3) / 36000
+k[1][4] = 55 / 130
 k[4][1] = 110 / 130
-k[6][4] = 40 / N[4]
-k[5][4] = 15 / N[4]
-k[6][5] = 15 / N[5]
-k[7][6] = 2 / N[6]
-k[1][7] = 2 / N[7]
-k[1][6] = 53 / N[6]
+k[6][4] = 40 / 130
+k[5][4] = 15 / 130
+k[6][5] = 15 / 700
+k[7][6] = 2 / 60
+k[1][7] = 2 / 1500
+k[1][6] = 53 / 60
 
 # make the arrays which will hold all the deltaN values which is what we will actually graph
 x = np.arange(0, 100,  0.1)
@@ -92,9 +94,13 @@ for i in range(0, 1000):
 		newCont(N, j, i)
 	t += deltaT
 
-for i in range (1, 7):
+for i in range (1, 8):
 	plot(x,Narrays[i])
-axis([0, 100, -2, 2])
 xlabel('Time')
-ylabel('Change in container size')
+ylabel(labelStr)
+legend(legends)
+axis([0, 100, -2, 2])
+grid(True)
+axhline(0, color='black', lw=2)
+axvline(0, color='black', lw=2)
 show()
