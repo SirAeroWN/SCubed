@@ -54,24 +54,23 @@ deltaT = 0.1
 t = 0
 burned = False
 beta = 0.1
-originalN = ['placeholder', 700, 1000, 36000, 130, 700, 60, 1500]
 
 N = ['placeholder', 700, 1000, 36000, 130, 700, 60, 1500]
 
 # kij's are the original always equilibrium numbers? or are they initial values?
 k = np.empty((8, 8))
-k[2][1] = 100 / originalN[1]
-k[1][2] = 100 / originalN[2]
-k[3][2] = (100 / 3) / originalN[2]
-k[2][3] = (100 / 3) / originalN[3]
-k[1][4] = 55 / originalN[4]
+k[2][1] = 100 / N[1]
+k[1][2] = 100 / N[2]
+k[3][2] = (100 / 3) / N[2]
+k[2][3] = (100 / 3) / N[3]
+k[1][4] = 55 / N[4]
 k[4][1] = 110 / 130
-k[6][4] = 40 / originalN[4]
-k[5][4] = 15 / originalN[4]
-k[6][5] = 15 / originalN[5]
-k[7][6] = 2 / originalN[6]
-k[1][7] = 2 / originalN[7]
-k[1][6] = 53 / originalN[6]
+k[6][4] = 40 / N[4]
+k[5][4] = 15 / N[4]
+k[6][5] = 15 / N[5]
+k[7][6] = 2 / N[6]
+k[1][7] = 2 / N[7]
+k[1][6] = 53 / N[6]
 
 # make the arrays which will hold all the deltaN values which is what we will actually graph
 x = np.arange(0, 100,  0.1)
