@@ -55,7 +55,7 @@ t = 0
 burned = False
 beta = 0.1
 legends = ['placeholder', 'Atmosphere', 'Mixed Upper Ocean Layer', 'Deep Ocean Layer', 'Short-lived Terrestrial Biota', 'Long-lived Biota', 'Detritus', 'Soil']
-labelStr = 'Rate of Change (GT carbon)'
+labelStr = 'Change in amount of Carbon (GT)'
 
 N = ['placeholder', 700, 1000, 36000, 130, 700, 60, 1500]
 
