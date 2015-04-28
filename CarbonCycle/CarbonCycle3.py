@@ -45,6 +45,7 @@ deltas = { 1: lambda : (F(1, 2) + F(1, 4) + F(1, 7) + F(1, 6) - F(2, 1) - F(4, 1
 		}
 
 N = ['placeholder', 700, 1000, 36000, 130, 700, 60, 1500]
+original = ['placeholder', 700, 1000, 36000, 130, 700, 60, 1500]
 
 # kij's are the original always equilibrium numbers? or are they initial values?
 k = np.empty((8, 8))
@@ -75,13 +76,8 @@ for i in range(1, 1000):
 		burned = True
 	for j in range(1, 8):
 		newCont(N, j, i)
-	NGraphArrays[1][i] = N[1] - 700
-	NGraphArrays[2][i] = N[2] - 1000
-	NGraphArrays[3][i] = N[3] - 36000
-	NGraphArrays[4][i] = N[4] - 130
-	NGraphArrays[5][i] = N[5] - 700
-	NGraphArrays[6][i] = N[6] - 60
-	NGraphArrays[7][i] = N[7] - 1500
+	for j in range(1, 8):
+		NGraphArrays[j][i] = N[j] - original[j]
 	for j in range(1, 8):
 		Narrays[j][i] = N[j]
 	t += deltaT
