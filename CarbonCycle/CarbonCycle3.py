@@ -30,8 +30,6 @@ def newCont(N, container, i):
 
 # constants
 deltaT = 0.1
-t = 0
-burned = False
 beta = 0.1
 legends = ['Atmosphere', 'Mixed Upper Ocean Layer', 'Deep Ocean Layer', 'Short-lived Terrestrial Biota', 'Long-lived Biota', 'Detritus', 'Soil']
 labelStr = 'Change in amount of Carbon (GT)'
@@ -71,16 +69,14 @@ for i in range(1, 8):
 
 # now make the fancy for loop to do all the hard work
 for i in range(1, 1000):
-	if t >= 10 and not burned:
+	if i == 102:
 		N[1] += 10
-		burned = True
 	for j in range(1, 8):
 		newCont(N, j, i)
 	for j in range(1, 8):
 		NGraphArrays[j][i] = N[j] - original[j]
 	for j in range(1, 8):
 		Narrays[j][i] = N[j]
-	t += deltaT
 
 for i in range (1, 8):
 	plot(x,NGraphArrays[i])
