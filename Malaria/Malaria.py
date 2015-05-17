@@ -36,11 +36,11 @@ def main(Vars):
 	k = float(Vars[9].get()) # death rate from malaria
 
 	# declare arrays that will be used to graph
-	sarray = empties(50)
-	varray = empties(50)
-	iarray = empties(50)
-	rarray = empties(50)
-	narray = empties(50)
+	sarray = empties(51)
+	varray = empties(51)
+	iarray = empties(51)
+	rarray = empties(51)
+	narray = empties(51)
 
 	# initial values
 	narray[0] = N
@@ -50,7 +50,7 @@ def main(Vars):
 	rarray[0] = R
 
 	# now populate arrays with all the data
-	for i in range(1, 50):
+	for i in range(1, 51):
 		# find deltas, put in temporary variables instead of overall calculation because they are interdependent
 		ndS = deltaS(sarray[i - 1], iarray[i - 1], e, p, u, N, B)
 		ndv = deltav(varray[i - 1], e, p, u, N)
@@ -92,7 +92,7 @@ def main(Vars):
 		narray[i] = nS + nv + nI + nR
 
 	# only need one x array
-	x = np.arange(0, 50, 1)
+	x = np.arange(0, 51, 1)
 
 	# plot arrays, no for loop because that adds performance overhead
 	plot(x, sarray)
@@ -122,6 +122,7 @@ def tkwindow():
 	# declare window and give it a title
 	window = tk.Tk()
 	window.title('Options')
+	
 	# Variables as strings for display
 	variables = ['N', 'B', 'u', 'y', 'e', 'p', 'v', 'I', 'R', 'k']
 	descriptors = ['Total Population', 'Force of Infection', 'Death Rate in Overall Population', 'Recovery Rate', 'Vaccine Take, Percentage that are Protected', 'Percentage Vaccinated at Birth', 'Vaccinated Population', 'Infected Population', 'Recovered Population', 'Death Rate from Malaria']
@@ -135,6 +136,7 @@ def tkwindow():
 		tk.Label(window, text = variables[i]).grid(row = i, column = 1)
 		tk.Label(window, text = descriptors[i]).grid(row = i, column = 0)
 
+	# button to graph with variables, lambda to avoid having to use classes and other stupid tkinter stuff
 	tk.Button(window, text = 'Graph', command = lambda stringVariables=stringVariables: main(stringVariables)).grid(row = i + 1, columnspan = 3)
 
 	window.mainloop()
