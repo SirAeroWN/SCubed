@@ -13,6 +13,7 @@
 # 	N7 = 1500
 # where units are 10^15 grams (a gigaton; GT), Transfers are in GT/year
 
+
 import numpy as np
 from matplotlib.pylab import *
 
@@ -87,7 +88,7 @@ for i in range(0, 1000):
 		burned = True
 	N1array[i] = deltaN1()
 	N[1] = N[1] + (N1array[i]*deltaT)
-	print('i:',i,'t:',t,'array:',N1array[i],'N1:', N[1])
+	#print('i:',i,'t:',t,'array:',N1array[i],'N1:', N[1])
 	N2array[i] = deltaN2()
 	N[2] = N[2] + (N2array[i]*deltaT)
 	N3array[i] = deltaN3()

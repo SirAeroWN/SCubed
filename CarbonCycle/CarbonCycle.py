@@ -13,6 +13,7 @@
 # 	N7 = 1500
 # where units are 10^15 grams (a gigaton; GT), Transfers are in GT/year
 
+
 import numpy as np
 from matplotlib.pylab import *
 
@@ -133,7 +134,7 @@ N7array = np.empty(1000)
 for i in range(0, 1000):
 	N1array[i] = deltaN1()
 	N1 = N1 + (N1array[i]*deltaT)
-	print(N1array[i])
+	#print(N1array[i])
 	N2array[i] = deltaN2()
 	N2 = N2 + (N2array[i]*deltaT)
 	N3array[i] = deltaN3()
@@ -154,7 +155,7 @@ plot(x,N4array)
 plot(x,N5array)
 plot(x,N6array)
 plot(x,N7array)
-axis([0, 100, 0, 10000])
+axis([0, 100, -2, 2])
 xlabel('Time')
 ylabel('Change in container size')
 show()
